@@ -1,0 +1,26 @@
+﻿@using System.Collections
+@using ByteNuts.NetCoreControls.Models.Grid
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <label for="orderId">Category</label>
+        <select asp-items="@(new SelectList(ViewData["Orders"] as IEnumerable, "OrderID", "OrderID"))" ncc-filter-targets="MultiGridWithFilter1,MultiGridWithFilter2" name="orderId" id="orderId" class="form-control">
+            <option value="">--- Choose an order ---</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        <h2 class="text-center">Customer Details</h2>
+        <ncc:render-control Context="@(ViewData["MultiGridWithFilter1"] as NccGridContext)"></ncc:render-control>
+        @*@await Html.PartialAsync("Partials/_MultiGridWithFilter1")*@
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <h2 class="text-center">Order Details</h2>
+        <ncc:render-control Context="@(ViewData["MultiGridWithFilter2"] as NccGridContext)"></ncc:render-control>
+        @*@await Html.PartialAsync("Partials/_MultiGridWithFilter2")*@
+    </div>
+</div>

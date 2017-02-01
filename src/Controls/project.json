@@ -4,8 +4,8 @@
       "version": "1.1.0",
       "type": "platform"
     },
-    "Microsoft.AspNetCore.Diagnostics": "1.0.0",
-    "Microsoft.AspNetCore.Mvc": "1.0.1",
+    "Microsoft.AspNetCore.Diagnostics": "1.1.0",
+    "Microsoft.AspNetCore.Mvc": "1.1.1",
     "Microsoft.AspNetCore.Razor.Tools": {
       "version": "1.0.0-preview2-final",
       "type": "build"
@@ -21,9 +21,11 @@
     "Microsoft.Extensions.Logging.Debug": "1.1.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.1.0",
-    "NetCoreControls": "0.1.0-beta-041",  
+    "NetCoreControls": "0.1.0-beta-042",  
     "Models": "1.0.0-*",
-    "DataSource": "1.0.0-*"
+    "DataSource": "1.0.0-*",
+    "BundlerMinifier.Core": "2.2.306",
+    "Seq.Extensions.Logging": "2.1.1"
   },
 
   "tools": {

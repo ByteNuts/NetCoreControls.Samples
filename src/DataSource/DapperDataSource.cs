@@ -31,18 +31,18 @@ namespace ByteNuts.NetCoreControls.Samples.DapperSource
             }).Result.ToList();
         }
 
-        public void UpdateProduct(ProductModel product)
+        public void UpdateProduct(ProductModel model)
         {
             object parameters = new
             {
-                ProductID = product.ProductID,
-                ProductName = product.ProductName,
-                QuantityPerUnit = product.QuantityPerUnit,
-                //UnitPrice = product.UnitPrice,
-                UnitsInStock = product.UnitsInStock,
-                UnitsOnOrder = product.UnitsOnOrder,
-                //ReorderLevel = product.ReorderLevel,
-                Discontinued = product.Discontinued
+                ProductID = model.ProductID,
+                ProductName = model.ProductName,
+                QuantityPerUnit = model.QuantityPerUnit,
+                UnitPrice = model.UnitPrice,
+                UnitsInStock = model.UnitsInStock,
+                UnitsOnOrder = model.UnitsOnOrder,
+                ReorderLevel = model.ReorderLevel,
+                Discontinued = model.Discontinued
             };
             var sqlCommand = $@" UPDATE p
                                 SET p.ProductName = @ProductName,

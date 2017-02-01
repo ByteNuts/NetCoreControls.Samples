@@ -1,4 +1,5 @@
-﻿using ByteNuts.NetCoreControls.Samples.DapperSource;
+﻿using ByteNuts.NetCoreControls.Middleware;
+using ByteNuts.NetCoreControls.Samples.DapperSource;
 using ByteNuts.NetCoreControls.Samples.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +30,7 @@ namespace ByteNuts.NetCoreControls.Samples.Controls
             // Add framework services.
             services.AddMvc();
 
-
+            services.AddNetCoreControls(Configuration);
             // Use Dapper for DataAccess
             services.AddScoped<IDataAccess, DapperDataSource>();
             //Use Entity Framework for DataAccess
@@ -39,6 +40,7 @@ namespace ByteNuts.NetCoreControls.Samples.Controls
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddSeq("http://localhost:5341");
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

@@ -335,6 +335,7 @@
                                 <li @(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccgrid" && ViewContext.RouteData.Values["action"].ToString().ToLower() == "gridwithfilter" ? "class=active" : "")><a asp-controller="NccGrid" asp-action="GridWithFilter" ><i class="fa fa-circle-o"></i> With Filter</a></li>
                                 <li @(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccgrid" && ViewContext.RouteData.Values["action"].ToString().ToLower() == "multigridwithfilter" ? "class=active" : "")><a asp-controller="NccGrid" asp-action="MultiGridWithFilter" ><i class="fa fa-circle-o"></i> Multi grids with filter</a></li>
                                 <li @(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccgrid" && ViewContext.RouteData.Values["action"].ToString().ToLower() == "editablegrid" ? "class=active" : "")><a asp-controller="NccGrid" asp-action="EditableGrid" ><i class="fa fa-circle-o"></i> Editable Grid</a></li>
+                                <li @(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccgrid" && ViewContext.RouteData.Values["action"].ToString().ToLower() == "customeditablegrid" ? "class=active" : "")><a asp-controller="NccGrid" asp-action="CustomEditableGrid" ><i class="fa fa-circle-o"></i> Custom Editable Grid</a></li>
                             </ul>
                         </li>
                         @*<li>

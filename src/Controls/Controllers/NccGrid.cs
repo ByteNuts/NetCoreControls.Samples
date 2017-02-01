@@ -27,7 +27,6 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Controllers
                 Id = "SimpleGrid",
                 DataAccessClass = typeof(IDataAccess).AssemblyQualifiedName,
                 SelectMethod = "GetProductList",
-                UseDependencyInjection = true,
                 ViewPaths = new ViewsPathsModel { ViewPath = "/Views/NccGrid/SimpleGrid.cshtml"}
             };
 
@@ -43,7 +42,6 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Controllers
                 Id = "SimpleGridWithClientPaging",
                 DataAccessClass = typeof(IDataAccess).AssemblyQualifiedName,
                 SelectMethod = "GetProductList",
-                UseDependencyInjection = true,
                 ViewPaths = new ViewsPathsModel { ViewPath = "/Views/NccGrid/SimpleGridWithClientPaging.cshtml" }
             };
 
@@ -59,7 +57,6 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Controllers
                 Id = "SimpleGridWithServerPaging",
                 DataAccessClass = typeof(IDataAccess).AssemblyQualifiedName,
                 SelectMethod = "GetProductListPaginated",
-                UseDependencyInjection = true,
                 ViewPaths = new ViewsPathsModel { ViewPath = "/Views/NccGrid/SimpleGridWithServerPaging.cshtml" }
             };
 
@@ -77,7 +74,6 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Controllers
                 DataAccessClass = typeof(IDataAccess).AssemblyQualifiedName,
                 SelectMethod = "GetProductListFiltered",
                 SelectParameters = new { discontinued = (bool?)null, supplierId = (int?)null, categoryId = (int?)null }.NccToExpando(),
-                UseDependencyInjection = true,
                 ViewPaths = new ViewsPathsModel { ViewPath = "/Views/NccGrid/Partials/_GridWithFilter1.cshtml" }
             };
 
@@ -97,7 +93,6 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Controllers
                 DataAccessClass = typeof(IDataAccess).AssemblyQualifiedName,
                 SelectMethod = "GetCustomerDetailByOrder",
                 SelectParameters = new { orderId = 10249 }.NccToExpando(),
-                UseDependencyInjection = true,
                 ViewPaths = new ViewsPathsModel { ViewPath = "/Views/NccGrid/Partials/_MultiGridWithFilter1.cshtml" }
             };
 
@@ -109,7 +104,6 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Controllers
                 DataAccessClass = typeof(IDataAccess).AssemblyQualifiedName,
                 SelectMethod = "GetOrderDetailByOrder",
                 SelectParameters = new { orderId = 10249 }.NccToExpando(),
-                UseDependencyInjection = true,
                 ViewPaths = new ViewsPathsModel { ViewPath = "/Views/NccGrid/Partials/_MultiGridWithFilter2.cshtml" }
             };
 
@@ -127,9 +121,26 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Controllers
                 Id = "EditableGrid",
                 DataAccessClass = typeof(IDataAccess).AssemblyQualifiedName,
                 SelectMethod = "GetProductList",
-                UseDependencyInjection = true,
-                EventHandlerClass = typeof(EditableGridEvents).AssemblyQualifiedName,
+                UpdateMethod = "UpdateProduct",
+                AutoGenerateEditButton = true,
+                DatabaseModelType = typeof(Models.Db.ProductModel).AssemblyQualifiedName,
                 ViewPaths = new ViewsPathsModel { ViewPath = "/Views/NccGrid/EditableGrid.cshtml" }
+            };
+
+            ViewData[context.Id] = context;
+
+            return View();
+        }
+
+        public IActionResult CustomEditableGrid()
+        {
+            var context = new NccGridContext
+            {
+                Id = "EditableGrid",
+                DataAccessClass = typeof(IDataAccess).AssemblyQualifiedName,
+                SelectMethod = "GetProductList",
+                EventHandlerClass = typeof(CustomEditableGridEvents).AssemblyQualifiedName,
+                ViewPaths = new ViewsPathsModel { ViewPath = "/Views/NccGrid/CustomEditableGrid.cshtml" }
             };
 
             ViewData[context.Id] = context;

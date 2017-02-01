@@ -8,10 +8,11 @@ using ByteNuts.NetCoreControls.Models;
 using ByteNuts.NetCoreControls.Models.Grid;
 using ByteNuts.NetCoreControls.Samples.Models.Db;
 using ByteNuts.NetCoreControls.Extensions;
+using ByteNuts.NetCoreControls.Services;
 
 namespace ByteNuts.NetCoreControls.Samples.Controls.NccEvents
 {
-    public class EditableGridEvents : NccGridEvents
+    public class CustomEditableGridEvents : NccGridEvents
     {
         public override async void Update(NccEventArgs eventArgs)
         {
@@ -26,7 +27,7 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.NccEvents
 
                 var model = new List<ProductModel>();
 
-                var ok = await eventArgs.Controller.NccBindModel(model, gridContext.DataKeysValues, gridContext.Id);
+                var ok = await EventService.NccBindModel(eventArgs.Controller, model, gridContext.DataKeysValues, gridContext.Id);
                 if (!ok) throw new Exception("Could not bind any model from FormCollection. Is RenderForm=\"true\" attribute present on grid element?");
 
                 foreach (var product in model)
@@ -47,8 +48,6 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.NccEvents
 
         public override async void UpdateRow(NccEventArgs eventArgs, int rowPos)
         {
-            base.Update(eventArgs);
-
             try
             {
                 var dataAccess = (IDataAccess)eventArgs.Controller.HttpContext.RequestServices.GetService(typeof(IDataAccess));
@@ -58,7 +57,7 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.NccEvents
 
                 var model = new List<ProductModel>();
 
-                var ok = await eventArgs.Controller.NccBindModel(model, gridContext.DataKeysValues, gridContext.Id);
+                var ok = await EventService.NccBindModel(eventArgs.Controller, model, gridContext.DataKeysValues, gridContext.Id);
                 if (!ok) throw new Exception("Could not bind any model from FormCollection. Is RenderForm=\"true\" attribute present on grid element?");
 
                 dataAccess.UpdateProduct(model[rowPos]);

@@ -14,38 +14,21 @@
         }
     </ncc:grid-content>
     <ncc:grid-columns>
-        <ncc:grid-columnbound DataValue="@Model.ProductID" HeaderText="Product Id"></ncc:grid-columnbound>
-        <ncc:grid-columntemplate>
-            <ncc:grid-headertemplate>Product Name</ncc:grid-headertemplate>
-            <ncc:grid-itemtemplate>
-                <input type="text" name="[@Model.NccRowNumber].ProductName" value="@Model.ProductName" class="form-control" />
-            </ncc:grid-itemtemplate>
-        </ncc:grid-columntemplate>
+        <ncc:grid-columnbound DataValue="@Model.ProductID" DataField="ProductID" HeaderText="Product Id"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.ProductName" DataField="ProductName" HeaderText="Product Name"></ncc:grid-columnbound>
         <ncc:grid-columnbound DataValue="@Model.SupplierID" HeaderText="Supplier ID"></ncc:grid-columnbound>
         <ncc:grid-columnbound DataValue="@Model.CategoryID" HeaderText="Category ID"></ncc:grid-columnbound>
-        <ncc:grid-columntemplate>
-            <ncc:grid-headertemplate>Quantity Per Unit</ncc:grid-headertemplate>
-            <ncc:grid-itemtemplate>
-                <input type="number" name="[@Model.NccRowNumber].QuantityPerUnit" value="@Model.QuantityPerUnit" class="form-control" />
-            </ncc:grid-itemtemplate>
-        </ncc:grid-columntemplate>
-        <ncc:grid-columnbound DataValue="@($"{Model.UnitPrice:0.00} €")" HeaderText="Unit Price"></ncc:grid-columnbound>
-        <ncc:grid-columntemplate>
-            <ncc:grid-headertemplate>Units In Stock</ncc:grid-headertemplate>
-            <ncc:grid-itemtemplate>
-                <input type="number" name="[@Model.NccRowNumber].UnitsInStock" value="@Model.UnitsInStock" class="form-control" />
-            </ncc:grid-itemtemplate>
-        </ncc:grid-columntemplate>
-        <ncc:grid-columntemplate>
-            <ncc:grid-headertemplate>Units On Order</ncc:grid-headertemplate>
-            <ncc:grid-itemtemplate>
-                <input type="number" name="[@Model.NccRowNumber].UnitsOnOrder" value="@Model.UnitsOnOrder" class="form-control" />
-            </ncc:grid-itemtemplate>
-        </ncc:grid-columntemplate>
-        <ncc:grid-columnbound DataValue="@Model.ReorderLevel" HeaderText="Reorder Level"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.QuantityPerUnit" DataField="QuantityPerUnit" HeaderText="Quantity Per Unit"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@($"{Model.UnitPrice:0.00} €")" DataField="UnitPrice" HeaderText="Unit Price"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.UnitsInStock" DataField="UnitsInStock" HeaderText="Units In Stock"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.UnitsOnOrder" DataField="UnitsOnOrder" HeaderText="Units On Order"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.ReorderLevel" DataField="ReorderLevel" HeaderText="Reorder Level"></ncc:grid-columnbound>
         <ncc:grid-columntemplate>
             <ncc:grid-headertemplate>Discontinued</ncc:grid-headertemplate>
             <ncc:grid-itemtemplate>
+                <span>@(Model.Discontinued ? "Discontinued" : "Active")</span>
+            </ncc:grid-itemtemplate>
+            <ncc:grid-edittemplate>
                 <select name="[@Model.NccRowNumber].Discontinued" class="form-control">
                     @if (Model.Discontinued)
                     {
@@ -58,19 +41,7 @@
                         <option value="false" selected="selected">Active</option>
                     }
                 </select>
-            </ncc:grid-itemtemplate>
-        </ncc:grid-columntemplate>
-        <ncc:grid-columntemplate>
-            <ncc:grid-itemtemplate>
-                <a href="#" ncc-grid-action-target="EditableGrid" ncc-grid-action="UpdateRow" ncc-grid-row="@Model.NccRowNumber" >Update Row</a>
-            </ncc:grid-itemtemplate>
+            </ncc:grid-edittemplate>
         </ncc:grid-columntemplate>
     </ncc:grid-columns>
-    <ncc:grid-content ContentType="PostContent">
-        <div class="row">
-            <div class="col-sm-12 text-center">
-                <button type="button" class="btn btn-success" ncc-grid-action-target="EditableGrid" ncc-grid-action="Update">Update all info</button>
-            </div>
-        </div>
-    </ncc:grid-content>
 </ncc:grid>

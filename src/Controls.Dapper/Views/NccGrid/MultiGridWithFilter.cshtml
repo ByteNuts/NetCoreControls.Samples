@@ -1,0 +1,127 @@
+﻿@using System.Collections
+@using ByteNuts.NetCoreControls.Models.Grid
+<div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <label for="orderId">Category</label>
+        <select asp-items="@(new SelectList(ViewData["Orders"] as IEnumerable, "OrderID", "OrderID"))" ncc-filter-targets="MultiGridWithFilter1,MultiGridWithFilter2" name="orderId" id="orderId" class="form-control">
+            <option value="">--- Choose an order ---</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 col-md-12">
+        <h2 class="text-center">Customer Details</h2>
+        <ncc:render-control Context="@(ViewData["MultiGridWithFilter1"] as NccGridContext)"></ncc:render-control>
+        @*@await Html.PartialAsync("Partials/_MultiGridWithFilter1")*@
+    </div>
+    <div class="col-lg-6 col-md-12">
+        <h2 class="text-center">Order Details</h2>
+        <ncc:render-control Context="@(ViewData["MultiGridWithFilter2"] as NccGridContext)"></ncc:render-control>
+        @*@await Html.PartialAsync("Partials/_MultiGridWithFilter2")*@
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Controller code</h3>
+        <div class="code">
+            <span class="Linq">var</span>&nbsp;context1&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;NccGridContext<br />
+            {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;Id&nbsp;=&nbsp;<span class="String">"MultiGridWithFilter1"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;DataAccessClass&nbsp;=&nbsp;<span class="Keyword">typeof</span>(IDataAccess).AssemblyQualifiedName,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;SelectMethod&nbsp;=&nbsp;<span class="String">"GetCustomerDetailByOrder"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;SelectParameters&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;{&nbsp;orderId&nbsp;=&nbsp;(<span class="ValueType">int</span>?)<span class="Keyword">null</span>&nbsp;}.NccToExpando(),<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;ViewPaths&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;ViewsPathsModel&nbsp;{&nbsp;ViewPath&nbsp;=&nbsp;<span class="String">"/Views/NccGrid/Partials/_MultiGridWithFilter1.cshtml"</span>&nbsp;}<br />
+            };<br />
+            <br />
+            ViewData[context1.Id]&nbsp;=&nbsp;context1;<br />
+            <br />
+            <span class="Linq">var</span>&nbsp;context2&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;NccGridContext<br />
+            {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;Id&nbsp;=&nbsp;<span class="String">"MultiGridWithFilter2"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;DataAccessClass&nbsp;=&nbsp;<span class="Keyword">typeof</span>(IDataAccess).AssemblyQualifiedName,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;SelectMethod&nbsp;=&nbsp;<span class="String">"GetOrderDetailByOrder"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;SelectParameters&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;{&nbsp;orderId&nbsp;=&nbsp;(<span class="ValueType">int</span>?)<span class="Keyword">null</span>&nbsp;}.NccToExpando(),<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;ViewPaths&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;ViewsPathsModel&nbsp;{&nbsp;ViewPath&nbsp;=&nbsp;<span class="String">"/Views/NccGrid/Partials/_MultiGridWithFilter2.cshtml"</span>&nbsp;}<br />
+            };<br />
+            <br />
+            ViewData[context2.Id]&nbsp;=&nbsp;context2;<br />
+            <br />
+            ViewData[<span class="String">"Orders"</span>]&nbsp;=&nbsp;DataAccess.GetOrders();
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Filter</h3>
+        <div class="code">
+            &lt;<span class="Linq">select</span>&nbsp;asp-items=<span class="String">"@@(new&nbsp;SelectList(ViewData["</span>Orders<span class="String">"]&nbsp;as&nbsp;IEnumerable,&nbsp;"</span>OrderID<span class="String">",&nbsp;"</span>OrderID<span class="String">"))"</span>&nbsp;ncc-filter-targets=<span class="String">"MultiGridWithFilter1,MultiGridWithFilter2"</span>&nbsp;name=<span class="String">"orderId"</span>&nbsp;id=<span class="String">"orderId"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-control"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;option&nbsp;value=<span class="String">""</span>&gt;---&nbsp;Choose&nbsp;an&nbsp;order&nbsp;---&lt;/option&gt;<br />
+            &lt;/<span class="Linq">select</span>&gt;
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Grid 1</h3>
+        <div class="code">
+            @@<span class="Namespace">using</span>&nbsp;ByteNuts.NetCoreControls.Models.Grid<br />
+            @@{<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;context&nbsp;=&nbsp;ViewData[<span class="String">"MultiGridWithFilter1"</span>]&nbsp;<span class="Keyword">as</span>&nbsp;NccGridContext;<br />
+            }<br />
+            <br />
+            &lt;ncc:grid&nbsp;Context=<span class="String">"@@context"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columns&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.CustomerID"</span>&nbsp;HeaderText=<span class="String">"Customer&nbsp;ID"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.CompanyName"</span>&nbsp;HeaderText=<span class="String">"Company&nbsp;Name"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columntemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-headertemplate&gt;Contact&lt;/ncc:grid-headertemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-itemtemplate&gt;@@Model.ContactTitle&nbsp;@@Model.ContactName&lt;/ncc:grid-itemtemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columntemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columntemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-headertemplate&gt;Contact&nbsp;Address&lt;/ncc:grid-headertemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-itemtemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;@@Model.Address&lt;/span&gt;&lt;br/&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;@@Model.PostalCode,&nbsp;@@Model.Region,&nbsp;@@Model.City&lt;/span&gt;&lt;br/&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;@@Model.Country&lt;/span&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-itemtemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columntemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.Phone"</span>&nbsp;HeaderText=<span class="String">"Phone"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.Fax"</span>&nbsp;HeaderText=<span class="String">"Fax"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columns&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-emptyrow&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"text-center"</span>&gt;&lt;strong&gt;No&nbsp;customer&nbsp;details&lt;/strong&gt;&lt;/div&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-emptyrow&gt;<br />
+            &lt;/ncc:grid&gt;
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Grid 2</h3>
+        <div class="code">
+            @@<span class="Namespace">using</span>&nbsp;ByteNuts.NetCoreControls.Models.Grid<br />
+            @@{<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;context&nbsp;=&nbsp;ViewData[<span class="String">"MultiGridWithFilter2"</span>]&nbsp;<span class="Keyword">as</span>&nbsp;NccGridContext;<br />
+            }<br />
+            <br />
+            &lt;ncc:grid&nbsp;Context=<span class="String">"@@context"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columns&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.OrderID"</span>&nbsp;HeaderText=<span class="String">"OrderID"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductID"</span>&nbsp;HeaderText=<span class="String">"ProductID"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductName"</span>&nbsp;HeaderText=<span class="String">"Product&nbsp;Name"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.UnitPrice"</span>&nbsp;HeaderText=<span class="String">"UnitPrice"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.Quantity"</span>&nbsp;HeaderText=<span class="String">"Quantity"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.Discount"</span>&nbsp;HeaderText=<span class="String">"Discount"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columns&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-emptyrow&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"text-center"</span>&gt;&lt;strong&gt;No&nbsp;order&nbsp;details&lt;/strong&gt;&lt;/div&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-emptyrow&gt;<br />
+            &lt;/ncc:grid&gt;
+        </div>
+    </div>
+</div>

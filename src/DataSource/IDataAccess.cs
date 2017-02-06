@@ -6,7 +6,7 @@ namespace ByteNuts.NetCoreControls.Samples.DapperSource
 {
     public interface IDataAccess
     {
-        List<dynamic> GetProductList();
+        List<ProductModel> GetProductList();
         void UpdateProduct(ProductModel model);
         Tuple<IList<dynamic>, int> GetProductListPaginated(int pageNumber, int pageSize);
         List<dynamic> GetProductListFiltered(bool? discontinued, int? supplierId, int? categoryId);
@@ -16,9 +16,9 @@ namespace ByteNuts.NetCoreControls.Samples.DapperSource
 
         #region Non binded data
 
-        List<dynamic> GetSuppliers();
+        List<SupplierModel> GetSuppliers();
 
-        List<dynamic> GetCategories();
+        List<CategoryModel> GetCategories();
 
         List<dynamic> GetOrders();
 

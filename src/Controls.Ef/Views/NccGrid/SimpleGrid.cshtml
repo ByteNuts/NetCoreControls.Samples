@@ -1,0 +1,44 @@
+﻿@await Html.PartialAsync("/Views/NccGrid/Partials/_SimpleGrid.cshtml")
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Controller code</h3>
+        <div class="code">
+            <span class="Linq">var</span>&nbsp;context&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;NccGridContext<br />
+            {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;Id&nbsp;=&nbsp;<span class="String">"SimpleGrid"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;DataAccessClass&nbsp;=&nbsp;<span class="Keyword">typeof</span>(IDataAccess).AssemblyQualifiedName,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;SelectMethod&nbsp;=&nbsp;<span class="String">"GetProductList"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;ViewPaths&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;ViewsPathsModel&nbsp;{&nbsp;ViewPath&nbsp;=&nbsp;<span class="String">"/Views/NccGrid/SimpleGrid.cshtml"</span>}<br />
+            };<br />
+            <br />
+            ViewData[context.Id]&nbsp;=&nbsp;context;
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>View</h3>
+        <div class="code">
+            @@<span class="Namespace">using</span>&nbsp;ByteNuts.NetCoreControls.Models.Grid<br />
+            @@{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;context&nbsp;=&nbsp;ViewData[<span class="String">"SimpleGrid"</span>]&nbsp;<span class="Keyword">as</span>&nbsp;NccGridContext;<br />
+            }<br />
+            <br />
+            &lt;ncc:grid&nbsp;Context=<span class="String">"@@context"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columns&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductId"</span>&nbsp;HeaderText=<span class="String">"Product&nbsp;Id"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductName"</span>&nbsp;HeaderText=<span class="String">"Product&nbsp;Name"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.SupplierId"</span>&nbsp;HeaderText=<span class="String">"Supplier&nbsp;Id"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.CategoryId"</span>&nbsp;HeaderText=<span class="String">"Category&nbsp;Id"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.QuantityPerUnit"</span>&nbsp;HeaderText=<span class="String">"Quantity&nbsp;Per&nbsp;Unit"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@($"</span>{Model.UnitPrice:0.00}&nbsp;€<span class="String">")"</span>&nbsp;HeaderText=<span class="String">"Unit&nbsp;Price"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.UnitsInStock"</span>&nbsp;HeaderText=<span class="String">"Units&nbsp;In&nbsp;Stock"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.UnitsOnOrder"</span>&nbsp;HeaderText=<span class="String">"Units&nbsp;On&nbsp;Order"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ReorderLevel"</span>&nbsp;HeaderText=<span class="String">"Reorder&nbsp;Level"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@(Model.Discontinued&nbsp;?&nbsp;"</span>Discontinued<span class="String">"&nbsp;:&nbsp;"</span>Active<span class="String">")"</span>&nbsp;HeaderText=<span class="String">"Discontinued"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columns&gt;<br />
+            &lt;/ncc:grid&gt;
+        </div>
+    </div>
+</div>

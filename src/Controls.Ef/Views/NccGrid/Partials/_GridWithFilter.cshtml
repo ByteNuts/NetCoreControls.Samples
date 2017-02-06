@@ -1,0 +1,19 @@
+﻿@using ByteNuts.NetCoreControls.Models.Grid
+@{
+    var context = ViewData["GridWithFilter"] as NccGridContext;
+}
+
+<ncc:grid Context="@context" AllowPaging="true">
+    <ncc:grid-columns>
+        <ncc:grid-columnbound DataValue="@Model.ProductId" HeaderText="Product Id"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.ProductName" HeaderText="Product Name"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.SupplierId" HeaderText="Supplier Id"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.CategoryId" HeaderText="Category Id"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.QuantityPerUnit" HeaderText="Quantity Per Unit"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@($"{Model.UnitPrice:0.00} €")" HeaderText="Unit Price"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.UnitsInStock" HeaderText="Units In Stock"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.UnitsOnOrder" HeaderText="Units On Order"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.ReorderLevel" HeaderText="Reorder Level"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@(Model.Discontinued ? "Discontinued" : "Active")" HeaderText="Discontinued"></ncc:grid-columnbound>
+    </ncc:grid-columns>
+</ncc:grid>

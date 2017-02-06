@@ -1,0 +1,105 @@
+﻿@await Html.PartialAsync("/Views/NccGrid/Partials/_EditableGrid.cshtml")
+
+<div class="alert alert-info text-center">
+    <span style="font-size: 15px;">The editable field on ProductID was intentionally, just to show that DataKeys are protected from editing or tampering with the DOM.</span>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Controller code</h3>
+        <div class="code">
+            <span class="Linq">var</span>&nbsp;suppliers&nbsp;=&nbsp;DataAccess.GetSuppliers();<br />
+            <span class="Linq">var</span>&nbsp;categories&nbsp;=&nbsp;DataAccess.GetCategories();<br />
+            <br />
+            <span class="Linq">var</span>&nbsp;context&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;NccGridContext<br />
+            {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;Id&nbsp;=&nbsp;<span class="String">"EditableGrid"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;DataAccessClass&nbsp;=&nbsp;<span class="Keyword">typeof</span>(IDataAccess).AssemblyQualifiedName,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;SelectMethod&nbsp;=&nbsp;<span class="String">"GetProductList"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;UpdateMethod&nbsp;=&nbsp;<span class="String">"UpdateProduct"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;AutoGenerateEditButton&nbsp;=&nbsp;<span class="Keyword">true</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;DatabaseModelType&nbsp;=&nbsp;<span class="Keyword">typeof</span>(Models.Db.ProductModel).AssemblyQualifiedName,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;ViewPaths&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;ViewsPathsModel&nbsp;{&nbsp;ViewPath&nbsp;=&nbsp;<span class="String">"/Views/NccGrid/Partials/_EditableGrid.cshtml"</span>&nbsp;},<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;AdditionalData&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;Dictionary&lt;<span class="ReferenceType">string</span>,&nbsp;<span class="ReferenceType">object</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;<span class="String">"Suppliers"</span>,&nbsp;suppliers&nbsp;},<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;<span class="String">"Categories"</span>,&nbsp;categories&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            };<br />
+            <br />
+            ViewData[context.Id]&nbsp;=&nbsp;context;
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>View</h3>
+        <div class="code">
+            @@<span class="Namespace">using</span>&nbsp;ByteNuts.NetCoreControls.Samples.Models.Db<br />
+            @@{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;context&nbsp;=&nbsp;ViewData[<span class="String">"EditableGrid"</span>]&nbsp;<span class="Keyword">as</span>&nbsp;NccGridContext;<br />
+            }<br />
+            <br />
+            &lt;ncc:grid&nbsp;Context=<span class="String">"@@context"</span>&nbsp;DataKeys=<span class="String">"ProductID"</span>&nbsp;AllowPaging=<span class="String">"true"</span>&nbsp;RenderForm=<span class="String">"true"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-content&nbsp;ContentType=<span class="String">"PreContent"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@@<span class="Statement">if</span>&nbsp;(ViewBag.Message&nbsp;!=&nbsp;<span class="Keyword">null</span>)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"alert&nbsp;alert-@@ViewBag.MessageType&nbsp;alert-dismissable"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;href=<span class="String">"#"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"close"</span>&nbsp;data-dismiss=<span class="String">"alert"</span>&nbsp;aria-label=<span class="String">"close"</span>&gt;&amp;times;&lt;/a&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@@ViewBag.Message<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-content&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columns&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductID"</span>&nbsp;DataField=<span class="String">"ProductID"</span>&nbsp;HeaderText=<span class="String">"Product&nbsp;Id"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductName"</span>&nbsp;DataField=<span class="String">"ProductName"</span>&nbsp;HeaderText=<span class="String">"Product&nbsp;Name"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columntemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-headertemplate&gt;Supplier&lt;/ncc:grid-headertemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-itemtemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@@(((List&lt;SupplierModel&gt;)context?.AdditionalData[<span class="String">"Suppliers"</span>]).FirstOrDefault(x&nbsp;=&gt;&nbsp;x.SupplierID&nbsp;==&nbsp;Model.SupplierID)?.CompanyName)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-itemtemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-edittemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="Linq">select</span>&nbsp;asp-items=<span class="String">"@@(new&nbsp;SelectList((List&lt;SupplierModel&gt;)context?.AdditionalData["</span>Suppliers<span class="String">"],&nbsp;"</span>SupplierID<span class="String">",&nbsp;"</span>CompanyName<span class="String">",&nbsp;Model.SupplierID))"</span>&nbsp;name=<span class="String">"SupplierID"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-control"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="Linq">select</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-edittemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columntemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columntemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-headertemplate&gt;Category&lt;/ncc:grid-headertemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-itemtemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@@(((List&lt;CategoryModel&gt;)context?.AdditionalData[<span class="String">"Categories"</span>]).FirstOrDefault(x&nbsp;=&gt;&nbsp;x.CategoryID&nbsp;==&nbsp;Model.CategoryID)?.CategoryName)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-itemtemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-edittemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="Linq">select</span>&nbsp;asp-items=<span class="String">"@@(new&nbsp;SelectList((List&lt;CategoryModel&gt;)context?.AdditionalData["</span>Categories<span class="String">"],&nbsp;"</span>CategoryID<span class="String">",&nbsp;"</span>CategoryName<span class="String">",&nbsp;Model.CategoryID))"</span>&nbsp;name=<span class="String">"CategoryID"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-control"</span>&gt;&lt;/<span class="Linq">select</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-edittemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columntemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.QuantityPerUnit"</span>&nbsp;DataField=<span class="String">"QuantityPerUnit"</span>&nbsp;HeaderText=<span class="String">"Quantity&nbsp;Per&nbsp;Unit"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@($"</span>{Model.UnitPrice:0.00}&nbsp;€<span class="String">")"</span>&nbsp;DataField=<span class="String">"UnitPrice"</span>&nbsp;HeaderText=<span class="String">"Unit&nbsp;Price"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.UnitsInStock"</span>&nbsp;DataField=<span class="String">"UnitsInStock"</span>&nbsp;HeaderText=<span class="String">"Units&nbsp;In&nbsp;Stock"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.UnitsOnOrder"</span>&nbsp;DataField=<span class="String">"UnitsOnOrder"</span>&nbsp;HeaderText=<span class="String">"Units&nbsp;On&nbsp;Order"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ReorderLevel"</span>&nbsp;DataField=<span class="String">"ReorderLevel"</span>&nbsp;HeaderText=<span class="String">"Reorder&nbsp;Level"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columntemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-headertemplate&gt;Discontinued&lt;/ncc:grid-headertemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-itemtemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;@@(Model.Discontinued&nbsp;?&nbsp;<span class="String">"Discontinued"</span>&nbsp;:&nbsp;<span class="String">"Active"</span>)&lt;/span&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-itemtemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-edittemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="Linq">select</span>&nbsp;name=<span class="String">"Discontinued"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-control"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@@<span class="Statement">if</span>&nbsp;(Model.Discontinued)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option&nbsp;value=<span class="String">"true"</span>&nbsp;selected=<span class="String">"selected"</span>&gt;Discontinued&lt;/option&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option&nbsp;value=<span class="String">"false"</span>&gt;Active&lt;/option&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">else</span><br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option&nbsp;value=<span class="String">"true"</span>&gt;Discontinued&lt;/option&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option&nbsp;value=<span class="String">"false"</span>&nbsp;selected=<span class="String">"selected"</span>&gt;Active&lt;/option&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="Linq">select</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-edittemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columntemplate&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columns&gt;<br />
+            &lt;/ncc:grid&gt;
+        </div>
+    </div>
+</div>

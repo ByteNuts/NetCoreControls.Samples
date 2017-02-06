@@ -1,0 +1,28 @@
+﻿@using ByteNuts.NetCoreControls.Models.Grid
+@{
+    var context = ViewData["MultiGridWithFilter1"] as NccGridContext;
+}
+
+<ncc:grid Context="@context">
+    <ncc:grid-columns>
+        <ncc:grid-columnbound DataValue="@Model.CustomerId" HeaderText="Customer ID"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.CompanyName" HeaderText="Company Name"></ncc:grid-columnbound>
+        <ncc:grid-columntemplate>
+            <ncc:grid-headertemplate>Contact</ncc:grid-headertemplate>
+            <ncc:grid-itemtemplate>@Model.ContactTitle @Model.ContactName</ncc:grid-itemtemplate>
+        </ncc:grid-columntemplate>
+        <ncc:grid-columntemplate>
+            <ncc:grid-headertemplate>Contact Address</ncc:grid-headertemplate>
+            <ncc:grid-itemtemplate>
+                <span>@Model.Address</span><br/>
+                <span>@Model.PostalCode, @Model.Region, @Model.City</span><br/>
+                <span>@Model.Country</span>
+            </ncc:grid-itemtemplate>
+        </ncc:grid-columntemplate>
+        <ncc:grid-columnbound DataValue="@Model.Phone" HeaderText="Phone"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.Fax" HeaderText="Fax"></ncc:grid-columnbound>
+    </ncc:grid-columns>
+    <ncc:grid-emptyrow>
+        <div class="text-center"><strong>No customer details</strong></div>
+    </ncc:grid-emptyrow>
+</ncc:grid>

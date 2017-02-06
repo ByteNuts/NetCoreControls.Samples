@@ -21,14 +21,14 @@ namespace ByteNuts.NetCoreControls.Samples.DapperSource
             _connStrings = connStrings;
 
         }
-        public List<dynamic> GetProductList()
+        public List<ProductModel> GetProductList()
         {
             var sqlCommand = $@" SELECT * FROM Products";
             return Task.Factory.StartNew(() =>
             {
                 using (var connection = new SqlConnection(_connStrings.Value.LocalDb))
-                    return connection.Query<dynamic>(sqlCommand);
-            }).Result.ToList();
+                    return connection.Query<ProductModel>(sqlCommand);
+            }).Result.AsList();
         }
 
         public void UpdateProduct(ProductModel model)
@@ -37,6 +37,8 @@ namespace ByteNuts.NetCoreControls.Samples.DapperSource
             {
                 ProductID = model.ProductID,
                 ProductName = model.ProductName,
+                SupplierID = model.SupplierID,
+                CategoryID = model.CategoryID,
                 QuantityPerUnit = model.QuantityPerUnit,
                 UnitPrice = model.UnitPrice,
                 UnitsInStock = model.UnitsInStock,
@@ -46,9 +48,13 @@ namespace ByteNuts.NetCoreControls.Samples.DapperSource
             };
             var sqlCommand = $@" UPDATE p
                                 SET p.ProductName = @ProductName,
+                                    p.SupplierID = @SupplierID,
+                                    p.CategoryID = @CategoryID,
                                     p.QuantityPerUnit = @QuantityPerUnit,
+                                    p.UnitPrice = @UnitPrice,
                                     p.UnitsInStock = @UnitsInStock,
                                     p.UnitsOnOrder = @UnitsOnOrder,
+                                    p.ReorderLevel = @ReorderLevel,
                                     p.Discontinued = @Discontinued
                                 FROM Products p
                                 WHERE p.ProductID = @ProductID";
@@ -148,21 +154,21 @@ namespace ByteNuts.NetCoreControls.Samples.DapperSource
 
         #region Non binded data
 
-        public List<dynamic> GetSuppliers()
+        public List<SupplierModel> GetSuppliers()
         {
             return Task.Factory.StartNew(() =>
             {
                 using (var connection = new SqlConnection(_connStrings.Value.LocalDb))
-                    return connection.Query<dynamic>($@" SELECT * FROM Suppliers");
+                    return connection.Query<SupplierModel>($@" SELECT * FROM Suppliers");
             }).Result.ToList();
         }
 
-        public List<dynamic> GetCategories()
+        public List<CategoryModel> GetCategories()
         {
             return Task.Factory.StartNew(() =>
             {
                 using (var connection = new SqlConnection(_connStrings.Value.LocalDb))
-                    return connection.Query<dynamic>($@" SELECT * FROM Categories");
+                    return connection.Query<CategoryModel>($@" SELECT * FROM Categories");
             }).Result.ToList();
         }
 

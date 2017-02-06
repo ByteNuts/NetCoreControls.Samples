@@ -1,0 +1,102 @@
+﻿@using System.Collections
+<div class="row">
+    <div class="col-md-4">
+        <label for="supplierId">Supplier</label>
+        <select asp-items="@(new SelectList(ViewData["Suppliers"] as IEnumerable, "SupplierID", "CompanyName"))" ncc-filter-targets="GridWithFilter1" name="supplierId" id="supplierId" class="form-control">
+            <option value="">--- All suppliers ---</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="categoryId">Category</label>
+        <select asp-items="@(new SelectList(ViewData["Categories"] as IEnumerable, "CategoryID", "CategoryName"))" ncc-filter-targets="GridWithFilter1" name="categoryId" id="categoryId" class="form-control">
+            <option value="">--- All categories ---</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="discontinued">Product State</label>
+        <select ncc-filter-targets="GridWithFilter1" name="discontinued" id="discontinued" class="form-control">
+            <option value="">--- All states ---</option>
+            <option value="false">Active</option>
+            <option value="true">Discontinued</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @await Html.PartialAsync("Partials/_GridWithFilter")
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3>Controller code</h3>
+        <div class="code">
+            <span class="Linq">var</span>&nbsp;context&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;NccGridContext<br />
+            {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;Id&nbsp;=&nbsp;<span class="String">"GridWithFilter"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;DataAccessClass&nbsp;=&nbsp;<span class="Keyword">typeof</span>(IDataAccess).AssemblyQualifiedName,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;SelectMethod&nbsp;=&nbsp;<span class="String">"GetProductListFiltered"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;SelectParameters&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;{&nbsp;discontinued&nbsp;=&nbsp;(<span class="ValueType">bool</span>?)<span class="Keyword">null</span>,&nbsp;supplierId&nbsp;=&nbsp;(<span class="ValueType">int</span>?)<span class="Keyword">null</span>,&nbsp;categoryId&nbsp;=&nbsp;(<span class="ValueType">int</span>?)<span class="Keyword">null</span>&nbsp;}.NccToExpando(),<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;ViewPaths&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;ViewsPathsModel&nbsp;{&nbsp;ViewPath&nbsp;=&nbsp;<span class="String">"/Views/NccGrid/Partials/_GridWithFilter.cshtml"</span>&nbsp;}<br />
+            };<br />
+            <br />
+            ViewData[context.Id]&nbsp;=&nbsp;context;<br />
+            <br />
+            ViewData[<span class="String">"Suppliers"</span>]&nbsp;=&nbsp;DataAccess.GetSuppliers();<br />
+            ViewData[<span class="String">"Categories"</span>]&nbsp;=&nbsp;DataAccess.GetCategories();
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Filters HTML code</h3>
+        <div class="code">
+            &lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"col-md-4"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;label&nbsp;<span class="Statement">for</span>=<span class="String">"supplierId"</span>&gt;Supplier&lt;/label&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="Linq">select</span>&nbsp;asp-items=<span class="String">"@@(new&nbsp;SelectList(ViewData["</span>Suppliers<span class="String">"]&nbsp;as&nbsp;IEnumerable,&nbsp;"</span>SupplierID<span class="String">",&nbsp;"</span>CompanyName<span class="String">"))"</span>&nbsp;ncc-filter-targets=<span class="String">"GridWithFilter1"</span>&nbsp;name=<span class="String">"supplierId"</span>&nbsp;id=<span class="String">"supplierId"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-control"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option&nbsp;value=<span class="String">""</span>&gt;---&nbsp;All&nbsp;suppliers&nbsp;---&lt;/option&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="Linq">select</span>&gt;<br />
+            &lt;/div&gt;<br />
+            &lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"col-md-4"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;label&nbsp;<span class="Statement">for</span>=<span class="String">"categoryId"</span>&gt;Category&lt;/label&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="Linq">select</span>&nbsp;asp-items=<span class="String">"@@(new&nbsp;SelectList(ViewData["</span>Categories<span class="String">"]&nbsp;as&nbsp;IEnumerable,&nbsp;"</span>CategoryID<span class="String">",&nbsp;"</span>CategoryName<span class="String">"))"</span>&nbsp;ncc-filter-targets=<span class="String">"GridWithFilter1"</span>&nbsp;name=<span class="String">"categoryId"</span>&nbsp;id=<span class="String">"categoryId"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-control"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option&nbsp;value=<span class="String">""</span>&gt;---&nbsp;All&nbsp;categories&nbsp;---&lt;/option&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="Linq">select</span>&gt;<br />
+            &lt;/div&gt;<br />
+            &lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"col-md-4"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;label&nbsp;<span class="Statement">for</span>=<span class="String">"discontinued"</span>&gt;Product&nbsp;State&lt;/label&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="Linq">select</span>&nbsp;ncc-filter-targets=<span class="String">"GridWithFilter1"</span>&nbsp;name=<span class="String">"discontinued"</span>&nbsp;id=<span class="String">"discontinued"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-control"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option&nbsp;value=<span class="String">""</span>&gt;---&nbsp;All&nbsp;states&nbsp;---&lt;/option&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option&nbsp;value=<span class="String">"false"</span>&gt;Active&lt;/option&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option&nbsp;value=<span class="String">"true"</span>&gt;Discontinued&lt;/option&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/<span class="Linq">select</span>&gt;<br />
+            &lt;/div&gt;
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>View</h3>
+        <div class="code">
+            @@<span class="Namespace">using</span>&nbsp;ByteNuts.NetCoreControls.Models.Grid<br />
+            @@{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;context&nbsp;=&nbsp;ViewData[<span class="String">"GridWithFilter"</span>]&nbsp;<span class="Keyword">as</span>&nbsp;NccGridContext;<br />
+            }<br />
+            <br />
+            &lt;ncc:grid&nbsp;Context=<span class="String">"@@context"</span>&nbsp;AllowPaging=<span class="String">"true"</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columns&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductID"</span>&nbsp;HeaderText=<span class="String">"Product&nbsp;Id"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductName"</span>&nbsp;HeaderText=<span class="String">"Product&nbsp;Name"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.SupplierID"</span>&nbsp;HeaderText=<span class="String">"Supplier&nbsp;ID"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.CategoryID"</span>&nbsp;HeaderText=<span class="String">"Category&nbsp;ID"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.QuantityPerUnit"</span>&nbsp;HeaderText=<span class="String">"Quantity&nbsp;Per&nbsp;Unit"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@($"</span>{Model.UnitPrice:0.00}&nbsp;€<span class="String">")"</span>&nbsp;HeaderText=<span class="String">"Unit&nbsp;Price"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.UnitsInStock"</span>&nbsp;HeaderText=<span class="String">"Units&nbsp;In&nbsp;Stock"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.UnitsOnOrder"</span>&nbsp;HeaderText=<span class="String">"Units&nbsp;On&nbsp;Order"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ReorderLevel"</span>&nbsp;HeaderText=<span class="String">"Reorder&nbsp;Level"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@(Model.Discontinued&nbsp;?&nbsp;"</span>Discontinued<span class="String">"&nbsp;:&nbsp;"</span>Active<span class="String">")"</span>&nbsp;HeaderText=<span class="String">"Discontinued"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columns&gt;<br />
+            &lt;/ncc:grid&gt;
+        </div>
+    </div>
+</div>

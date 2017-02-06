@@ -27,10 +27,10 @@
       "version": "1.1.0-preview4-final",
       "type": "build"
     },
-    "NetCoreControls": "0.1.0-beta-042",
     "Models": "1.0.0-*",
     "BundlerMinifier.Core": "2.2.306",
-    "Seq.Extensions.Logging": "2.1.1"
+    "Seq.Extensions.Logging": "2.1.1",
+    "NetCoreControls": "0.1.0-beta-*"
   },
 
   "tools": {

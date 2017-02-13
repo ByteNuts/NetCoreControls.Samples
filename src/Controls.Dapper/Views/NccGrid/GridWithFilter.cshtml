@@ -2,19 +2,19 @@
 <div class="row">
     <div class="col-md-4">
         <label for="supplierId">Supplier</label>
-        <select asp-items="@(new SelectList(ViewData["Suppliers"] as IEnumerable, "SupplierID", "CompanyName"))" ncc-filter-targets="GridWithFilter1" name="supplierId" id="supplierId" class="form-control">
+        <select asp-items="@(new SelectList(ViewData["Suppliers"] as IEnumerable, "SupplierID", "CompanyName"))" ncc-filter-targets="GridWithFilter" name="supplierId" id="supplierId" class="form-control">
             <option value="">--- All suppliers ---</option>
         </select>
     </div>
     <div class="col-md-4">
         <label for="categoryId">Category</label>
-        <select asp-items="@(new SelectList(ViewData["Categories"] as IEnumerable, "CategoryID", "CategoryName"))" ncc-filter-targets="GridWithFilter1" name="categoryId" id="categoryId" class="form-control">
+        <select asp-items="@(new SelectList(ViewData["Categories"] as IEnumerable, "CategoryID", "CategoryName"))" ncc-filter-targets="GridWithFilter" name="categoryId" id="categoryId" class="form-control">
             <option value="">--- All categories ---</option>
         </select>
     </div>
     <div class="col-md-4">
         <label for="discontinued">Product State</label>
-        <select ncc-filter-targets="GridWithFilter1" name="discontinued" id="discontinued" class="form-control">
+        <select ncc-filter-targets="GridWithFilter" name="discontinued" id="discontinued" class="form-control">
             <option value="">--- All states ---</option>
             <option value="false">Active</option>
             <option value="true">Discontinued</option>

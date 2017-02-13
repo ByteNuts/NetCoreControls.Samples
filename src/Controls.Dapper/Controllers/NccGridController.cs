@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ByteNuts.NetCoreControls.Samples.Controls.Dapper.Controllers
 {
-    public class NccGrid : Controller
+    public class NccGridController : Controller
     {
         private IDataAccess DataAccess { get; }
-        public NccGrid(IDataAccess dataAccess)
+        public NccGridController(IDataAccess dataAccess)
         {
             DataAccess = dataAccess;
         }

@@ -1,0 +1,6 @@
+﻿@using ByteNuts.NetCoreControls.Models.Select
+@{
+    var context = ViewData["DropDownList2"] as NccSelectContext;
+}
+
+<ncc:select name="categoryId" Context="@context" ncc-select-ordered-targets="DropDownList1,DropDownList2,DropDownList3" class="form-control"></ncc:select>

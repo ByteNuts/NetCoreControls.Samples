@@ -14,15 +14,20 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Dapper.Data
         List<dynamic> GetOrderDetailByOrder(int? orderId);
 
 
-        #region Non binded data
 
         List<SupplierModel> GetSuppliers();
 
         List<CategoryModel> GetCategories();
 
+        List<CategoryModel> GetCategoriesBySupplier(int? supplierId);
+
+        List<ProductModel> GetProductsByCategoryAndSupplier(int? supplierId, int? categoryId);
+
         List<dynamic> GetOrders();
 
-        #endregion Non binded data
+        List<dynamic> GetCustomers();
+
+        List<dynamic> GetOrderByCustomer(string customerId);
 
     }
 }

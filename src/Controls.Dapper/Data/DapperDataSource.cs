@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using System.Linq;
 using System.Data.SqlClient;
 using System.Data;
+using System.Threading;
 using ByteNuts.NetCoreControls.Samples.Controls.Dapper.Models;
 using ByteNuts.NetCoreControls.Samples.Controls.Dapper.Models.Db;
 
@@ -129,6 +130,7 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Dapper.Data
 
         public List<dynamic> GetOrderDetailByOrder(int? orderId)
         {
+            Thread.Sleep(2000);
             object parameters = new
             {
                 OrderID = orderId
@@ -149,9 +151,6 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Dapper.Data
 
 
 
-
-        #region Non binded data
-
         public List<SupplierModel> GetSuppliers()
         {
             return Task.Factory.StartNew(() =>
@@ -169,6 +168,25 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Dapper.Data
                     return connection.Query<CategoryModel>($@" SELECT * FROM Categories");
             }).Result.ToList();
         }
+        public List<CategoryModel> GetCategoriesBySupplier(int? supplierId)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                using (var connection = new SqlConnection(_connStrings.Value.DefaultConnection))
+                    return connection.Query<CategoryModel>($@" SELECT * FROM Categories INNER JOIN Suppliers ON SupplierID = {supplierId ?? -1}");
+            }).Result.ToList();
+        }
+
+
+        public List<ProductModel> GetProductsByCategoryAndSupplier(int? supplierId, int? categoryId)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                using (var connection = new SqlConnection(_connStrings.Value.DefaultConnection))
+                    return connection.Query<ProductModel>($@" SELECT * FROM Products p INNER JOIN Categories c ON p.CategoryID = c.CategoryID INNER JOIN Suppliers s ON s.SupplierID = {supplierId ?? -1} WHERE p.CategoryID = {categoryId ?? -1}");
+            }).Result.ToList();
+        }
+
 
         public List<dynamic> GetOrders()
         {
@@ -179,6 +197,24 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Dapper.Data
             }).Result.ToList();
         }
 
-        #endregion Non binded data
+
+        public List<dynamic> GetCustomers()
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                using (var connection = new SqlConnection(_connStrings.Value.DefaultConnection))
+                    return connection.Query<dynamic>($@" SELECT * FROM Customers");
+            }).Result.ToList();
+        }
+
+        public List<dynamic> GetOrderByCustomer(string customerId)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                using (var connection = new SqlConnection(_connStrings.Value.DefaultConnection))
+                    return connection.Query<dynamic>($@" SELECT * FROM Orders o WHERE o.CustomerID = {customerId ?? "NULL"}");
+            }).Result.ToList();
+        }
+
     }
 }

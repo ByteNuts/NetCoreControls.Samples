@@ -212,7 +212,7 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Dapper.Data
             return Task.Factory.StartNew(() =>
             {
                 using (var connection = new SqlConnection(_connStrings.Value.DefaultConnection))
-                    return connection.Query<dynamic>($@" SELECT * FROM Orders o WHERE o.CustomerID = {customerId ?? "NULL"}");
+                    return connection.Query<dynamic>($@" SELECT * FROM Orders o WHERE o.CustomerID = {(string.IsNullOrEmpty(customerId) ? "NULL" : "'" + customerId + "'")}");
             }).Result.ToList();
         }
 

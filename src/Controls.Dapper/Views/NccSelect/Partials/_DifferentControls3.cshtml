@@ -1,6 +1,18 @@
-﻿@using ByteNuts.NetCoreControls.Models.Select
+﻿@using ByteNuts.NetCoreControls.Models.Grid
 @{
-    var context = ViewData["DifferentControls2"] as NccSelectContext;
+    var context = ViewData["DifferentControls3"] as NccGridContext;
 }
 
-<ncc:select name="orderId" Context="@context" ncc-select-ordered-targets="DifferentControls1,DifferentControls2,DifferentControls3" class="form-control"></ncc:select>
+<ncc:grid Context="@context">
+    <ncc:grid-columns>
+        <ncc:grid-columnbound DataValue="@Model.OrderID" HeaderText="OrderID"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.ProductID" HeaderText="ProductID"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.ProductName" HeaderText="Product Name"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.UnitPrice" HeaderText="UnitPrice"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.Quantity" HeaderText="Quantity"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.Discount" HeaderText="Discount"></ncc:grid-columnbound>
+    </ncc:grid-columns>
+    <ncc:grid-emptyrow>
+        <div class="text-center"><strong>No order details</strong></div>
+    </ncc:grid-emptyrow>
+</ncc:grid>

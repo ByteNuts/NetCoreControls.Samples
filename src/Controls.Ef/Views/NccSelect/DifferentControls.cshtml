@@ -10,6 +10,7 @@
     <strong>Products: </strong><br/>@await Html.PartialAsync("/Views/NccSelect/Partials/_DifferentControls3.cshtml")
 </p>
 
+
 <div class="row">
     <div class="col-md-12">
         <h3>Controller code</h3>
@@ -20,7 +21,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;DataAccessClass&nbsp;=&nbsp;<span class="Keyword">typeof</span>(IDataAccess).AssemblyQualifiedName,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;SelectMethod&nbsp;=&nbsp;<span class="String">"GetCustomers"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;TextValue&nbsp;=&nbsp;<span class="String">"CompanyName"</span>,<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;DataValue&nbsp;=&nbsp;<span class="String">"CustomerID"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;DataValue&nbsp;=&nbsp;<span class="String">"CustomerId"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;FirstItem&nbsp;=&nbsp;<span class="String">"---&nbsp;Please&nbsp;select&nbsp;---"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;ViewPaths&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;ViewsPathsModel&nbsp;{&nbsp;ViewPath&nbsp;=&nbsp;<span class="String">"/Views/NccSelect/Partials/_DifferentControls1.cshtml"</span>&nbsp;}<br />
             };<br />
@@ -34,7 +35,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;SelectMethod&nbsp;=&nbsp;<span class="String">"GetOrderByCustomer"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;SelectParameters&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;{&nbsp;customerId&nbsp;=&nbsp;(<span class="ValueType">int</span>?)<span class="Keyword">null</span>&nbsp;}.NccToExpando(),<br />
             &nbsp;&nbsp;&nbsp;&nbsp;TextValue&nbsp;=&nbsp;<span class="String">"OrderDate"</span>,<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;DataValue&nbsp;=&nbsp;<span class="String">"OrderID"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;DataValue&nbsp;=&nbsp;<span class="String">"OrderId"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;FirstItem&nbsp;=&nbsp;<span class="String">"---&nbsp;Please&nbsp;select&nbsp;---"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;ViewPaths&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;ViewsPathsModel&nbsp;{&nbsp;ViewPath&nbsp;=&nbsp;<span class="String">"/Views/NccSelect/Partials/_DifferentControls2.cshtml"</span>&nbsp;}<br />
             };<br />
@@ -52,8 +53,7 @@
             <br />
             ViewData[context3.Id]&nbsp;=&nbsp;context3;<br />
             <span class="Statement">return</span>&nbsp;View();
-        </div>
-    </div>
+        </div>    </div>
 </div>
 
 <div class="row">
@@ -114,8 +114,8 @@
             <br />
             &lt;ncc:grid&nbsp;Context=<span class="String">"@@context"</span>&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columns&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.OrderID"</span>&nbsp;HeaderText=<span class="String">"OrderID"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductID"</span>&nbsp;HeaderText=<span class="String">"ProductID"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.OrderId"</span>&nbsp;HeaderText=<span class="String">"Order&nbsp;ID"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductId"</span>&nbsp;HeaderText=<span class="String">"Product&nbsp;ID"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductName"</span>&nbsp;HeaderText=<span class="String">"Product&nbsp;Name"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.UnitPrice"</span>&nbsp;HeaderText=<span class="String">"UnitPrice"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.Quantity"</span>&nbsp;HeaderText=<span class="String">"Quantity"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
@@ -125,5 +125,6 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"text-center"</span>&gt;&lt;strong&gt;No&nbsp;order&nbsp;details&lt;/strong&gt;&lt;/div&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-emptyrow&gt;<br />
             &lt;/ncc:grid&gt;
-        </div>    </div>
+        </div>
+    </div>
 </div>

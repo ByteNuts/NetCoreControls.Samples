@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ByteNuts.NetCoreControls.Samples.Controls.Ef.Data.Northwind;
+using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
 namespace ByteNuts.NetCoreControls.Samples.Controls.Ef.Data
 {
@@ -68,7 +69,6 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Ef.Data
 
 
 
-        #region Non binded data
 
         public IQueryable<Suppliers> GetSuppliers()
         {
@@ -80,11 +80,31 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Ef.Data
             return _dbContext.Categories;
         }
 
+        public IQueryable<Categories> GetCategoriesBySupplier(int? supplierId)
+        {
+            return from cat in _dbContext.Categories
+                    join suppliers in _dbContext.Suppliers on supplierId equals suppliers.SupplierId
+                   select cat;
+        }
+
+        public IQueryable<Products> GetProductsByCategoryAndSupplier(int? supplierId, int? categoryId)
+        {
+            return _dbContext.Products.Where(x => x.SupplierId == supplierId && x.CategoryId == categoryId);
+        }
+
         public IQueryable<Orders> GetOrders()
         {
             return _dbContext.Orders;
         }
 
-        #endregion Non binded data
+        public IQueryable<Customers> GetCustomers()
+        {
+            return _dbContext.Customers;
+        }
+
+        public IQueryable<Orders> GetOrderByCustomer(string customerId)
+        {
+            return _dbContext.Orders.Where(x => x.CustomerId == customerId);
+        }
     }
 }

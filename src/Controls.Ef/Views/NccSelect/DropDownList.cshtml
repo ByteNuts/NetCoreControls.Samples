@@ -9,6 +9,7 @@
 <p>
     <strong>Products: </strong>@await Html.PartialAsync("/Views/NccSelect/Partials/_DropDownList3.cshtml")
 </p>
+
 <div class="row">
     <div class="col-md-12">
         <h3>Controller code</h3>
@@ -19,7 +20,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;DataAccessClass&nbsp;=&nbsp;<span class="Keyword">typeof</span>(IDataAccess).AssemblyQualifiedName,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;SelectMethod&nbsp;=&nbsp;<span class="String">"GetSuppliers"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;TextValue&nbsp;=&nbsp;<span class="String">"CompanyName"</span>,<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;DataValue&nbsp;=&nbsp;<span class="String">"SupplierID"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;DataValue&nbsp;=&nbsp;<span class="String">"SupplierId"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;FirstItem&nbsp;=&nbsp;<span class="String">"---&nbsp;Please&nbsp;select&nbsp;---"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;ViewPaths&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;ViewsPathsModel&nbsp;{&nbsp;ViewPath&nbsp;=&nbsp;<span class="String">"/Views/NccSelect/Partials/_DropDownList1.cshtml"</span>&nbsp;}<br />
             };<br />
@@ -33,7 +34,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;SelectMethod&nbsp;=&nbsp;<span class="String">"GetCategoriesBySupplier"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;SelectParameters&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;{&nbsp;supplierId&nbsp;=&nbsp;(<span class="ValueType">int</span>?)<span class="Keyword">null</span>&nbsp;}.NccToExpando(),<br />
             &nbsp;&nbsp;&nbsp;&nbsp;TextValue&nbsp;=&nbsp;<span class="String">"CategoryName"</span>,<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;DataValue&nbsp;=&nbsp;<span class="String">"CategoryID"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;DataValue&nbsp;=&nbsp;<span class="String">"CategoryId"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;FirstItem&nbsp;=&nbsp;<span class="String">"---&nbsp;Please&nbsp;select&nbsp;---"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;ViewPaths&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;ViewsPathsModel&nbsp;{&nbsp;ViewPath&nbsp;=&nbsp;<span class="String">"/Views/NccSelect/Partials/_DropDownList2.cshtml"</span>&nbsp;}<br />
             };<br />
@@ -47,7 +48,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;SelectMethod&nbsp;=&nbsp;<span class="String">"GetProductsByCategoryAndSupplier"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;SelectParameters&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;{&nbsp;supplierId&nbsp;=&nbsp;(<span class="ValueType">int</span>?)<span class="Keyword">null</span>,&nbsp;categoryId&nbsp;=&nbsp;(<span class="ValueType">int</span>?)<span class="Keyword">null</span>&nbsp;}.NccToExpando(),<br />
             &nbsp;&nbsp;&nbsp;&nbsp;TextValue&nbsp;=&nbsp;<span class="String">"ProductName"</span>,<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;DataValue&nbsp;=&nbsp;<span class="String">"ProductID"</span>,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;DataValue&nbsp;=&nbsp;<span class="String">"ProductId"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;FirstItem&nbsp;=&nbsp;<span class="String">"---&nbsp;Please&nbsp;select&nbsp;---"</span>,<br />
             &nbsp;&nbsp;&nbsp;&nbsp;ViewPaths&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;ViewsPathsModel&nbsp;{&nbsp;ViewPath&nbsp;=&nbsp;<span class="String">"/Views/NccSelect/Partials/_DropDownList3.cshtml"</span>&nbsp;}<br />
             };<br />

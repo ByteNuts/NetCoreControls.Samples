@@ -15,15 +15,19 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Ef.Data
         IQueryable<dynamic> GetOrderDetailByOrder(int? orderId);
 
 
-        #region Non binded data
-
         IQueryable<Suppliers> GetSuppliers();
 
         IQueryable<Categories> GetCategories();
 
+        IQueryable<Categories> GetCategoriesBySupplier(int? supplierId);
+
+        IQueryable<Products> GetProductsByCategoryAndSupplier(int? supplierId, int? categoryId);
+
         IQueryable<Orders> GetOrders();
 
-        #endregion Non binded data
+        IQueryable<Customers> GetCustomers();
+
+        IQueryable<Orders> GetOrderByCustomer(string customerId);
 
     }
 }

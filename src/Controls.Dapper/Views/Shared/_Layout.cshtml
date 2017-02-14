@@ -319,9 +319,9 @@
                                 <i class="fa fa-home"></i> <span>Home</span>
                             </a>
                         </li>
-                        <li class="@(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccgrid" ? "active" : "") treeview active">
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccgrid" ? "active" : "") treeview">
                             <a href="#">
-                                <i class="fa fa-files-o"></i>
+                                <i class="fa fa-table"></i>
                                 <span>Grid</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -340,7 +340,7 @@
                         </li>
                         <li class="@(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccselect" ? "active" : "") treeview">
                             <a href="#">
-                                <i class="fa fa-files-o"></i>
+                                <i class="fa fa-caret-square-o-down"></i>
                                 <span>Select</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -385,7 +385,7 @@
 
             <footer class="main-footer">
                 <div class="pull-right hidden-xs">
-                    <b>Version</b> 0.1
+                    <b>Version</b> 0.5 beta1
                 </div>
                 <strong>Copyright &copy; 2017 <a asp-controller="Home" asp-action="Index">NetCoreControls</a>.</strong>
             </footer>

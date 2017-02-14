@@ -1,0 +1,18 @@
+﻿@using ByteNuts.NetCoreControls.Models.Grid
+@{
+    var context = ViewData["DifferentControls3"] as NccGridContext;
+}
+
+<ncc:grid Context="@context">
+    <ncc:grid-columns>
+        <ncc:grid-columnbound DataValue="@Model.OrderId" HeaderText="Order ID"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.ProductId" HeaderText="Product ID"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.ProductName" HeaderText="Product Name"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.UnitPrice" HeaderText="UnitPrice"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.Quantity" HeaderText="Quantity"></ncc:grid-columnbound>
+        <ncc:grid-columnbound DataValue="@Model.Discount" HeaderText="Discount"></ncc:grid-columnbound>
+    </ncc:grid-columns>
+    <ncc:grid-emptyrow>
+        <div class="text-center"><strong>No order details</strong></div>
+    </ncc:grid-emptyrow>
+</ncc:grid>

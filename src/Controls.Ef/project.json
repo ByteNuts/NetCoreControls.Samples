@@ -30,7 +30,7 @@
     "Models": "1.0.0-*",
     "BundlerMinifier.Core": "2.2.306",
     "Seq.Extensions.Logging": "2.1.1",
-    "NetCoreControls": "0.1.0-beta-*"
+    "NetCoreControls": "0.5.0-beta-*"
   },
 
   "tools": {

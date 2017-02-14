@@ -183,7 +183,7 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Dapper.Data
             return Task.Factory.StartNew(() =>
             {
                 using (var connection = new SqlConnection(_connStrings.Value.DefaultConnection))
-                    return connection.Query<ProductModel>($@" SELECT * FROM Products p INNER JOIN Categories c ON p.CategoryID = c.CategoryID INNER JOIN Suppliers s ON s.SupplierID = {supplierId ?? -1} WHERE p.CategoryID = {categoryId ?? -1}");
+                    return connection.Query<ProductModel>($@" SELECT * FROM Products p WHERE p.CategoryID = {categoryId ?? -1} AND p.SupplierID = {supplierId ?? -1}");
             }).Result.ToList();
         }
 

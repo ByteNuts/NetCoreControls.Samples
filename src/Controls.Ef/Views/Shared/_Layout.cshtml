@@ -319,9 +319,9 @@
                                 <i class="fa fa-home"></i> <span>Home</span>
                             </a>
                         </li>
-                        <li class="@(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccgrid" ? "active" : "") treeview active">
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccgrid" ? "active" : "") treeview">
                             <a href="#">
-                                <i class="fa fa-files-o"></i>
+                                <i class="fa fa-table"></i>
                                 <span>Grid</span>
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
@@ -338,7 +338,21 @@
                                 <li @(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccgrid" && ViewContext.RouteData.Values["action"].ToString().ToLower() == "customeditablegrid" ? "class=active" : "")><a asp-controller="NccGrid" asp-action="CustomEditableGrid" ><i class="fa fa-circle-o"></i> Custom Editable Grid</a></li>
                             </ul>
                         </li>
-                        @*<li>
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccselect" ? "active" : "") treeview">
+                            <a href="#">
+                                <i class="fa fa-caret-square-o-down"></i>
+                                <span>Select</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                    @*<span class="label label-primary pull-right">4</span>*@
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li @(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccselect" && ViewContext.RouteData.Values["action"].ToString().ToLower() == "dropdownlist" ? "class=active" : "")><a asp-controller="NccSelect" asp-action="DropDownList"><i class="fa fa-circle-o"></i> Select List</a></li>
+                                <li @(ViewContext.RouteData.Values["controller"].ToString().ToLower() == "nccselect" && ViewContext.RouteData.Values["action"].ToString().ToLower() == "differentcontrols" ? "class=active" : "")><a asp-controller="NccSelect" asp-action="DifferentControls"><i class="fa fa-circle-o"></i> Different Controls</a></li>
+                            </ul>
+                        </li>
+                       @*<li>
                             <a href="pages/widgets.html">
                                 <i class="fa fa-th"></i> <span>Widgets</span>
                                 <span class="pull-right-container">
@@ -371,7 +385,7 @@
 
             <footer class="main-footer">
                 <div class="pull-right hidden-xs">
-                    <b>Version</b> 0.1
+                    <b>Version</b> 0.5 beta1
                 </div>
                 <strong>Copyright &copy; 2017 <a asp-controller="Home" asp-action="Index">NetCoreControls</a>.</strong>
             </footer>

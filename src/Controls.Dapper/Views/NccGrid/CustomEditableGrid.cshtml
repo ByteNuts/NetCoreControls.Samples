@@ -106,7 +106,7 @@
         <h3>View</h3>
         <div class="code">
             @@<span class="Namespace">using</span>&nbsp;ByteNuts.NetCoreControls.Models.Grid<br />
-            @@<span class="Namespace">using</span>&nbsp;ByteNuts.NetCoreControls.Samples.Models.Db<br />
+            @@<span class="Namespace">using</span>&nbsp;ByteNuts.NetCoreControls.Samples.Controls.Dapper.Models.Db<br />
             @@{<br />
             &nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;context&nbsp;=&nbsp;ViewData[<span class="String">"CustomEditableGrid"</span>]&nbsp;<span class="Keyword">as</span>&nbsp;NccGridContext;<br />
             }<br />
@@ -190,14 +190,14 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columntemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columntemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-itemtemplate&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;href=<span class="String">"#"</span>&nbsp;ncc-grid-action-target=<span class="String">"EditableGrid"</span>&nbsp;ncc-grid-action=<span class="String">"UpdateRow"</span>&nbsp;ncc-grid-row=<span class="String">"@@Model.NccRowNumber"</span>&nbsp;&gt;Update&nbsp;Row&lt;/a&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;type=<span class="String">"button"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"btn&nbsp;btn-success"</span>&nbsp;ncc-grid-action-target=<span class="String">"CustomEditableGrid"</span>&nbsp;ncc-grid-action=<span class="String">"UpdateRow"</span>&nbsp;ncc-grid-row=<span class="String">"@@Model.NccRowNumber"</span>&nbsp;&gt;Update&nbsp;Row&lt;/button&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-itemtemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columntemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columns&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-content&nbsp;ContentType=<span class="String">"PostContent"</span>&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"row"</span>&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"col-sm-12&nbsp;text-center"</span>&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;type=<span class="String">"button"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"btn&nbsp;btn-success"</span>&nbsp;ncc-grid-action-target=<span class="String">"EditableGrid"</span>&nbsp;ncc-grid-action=<span class="String">"Update"</span>&gt;Update&nbsp;all&nbsp;info&lt;/button&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;type=<span class="String">"button"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"btn&nbsp;btn-success"</span>&nbsp;ncc-grid-action-target=<span class="String">"CustomEditableGrid"</span>&nbsp;ncc-grid-action=<span class="String">"Update"</span>&gt;Update&nbsp;all&nbsp;info&lt;/button&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-content&gt;<br />

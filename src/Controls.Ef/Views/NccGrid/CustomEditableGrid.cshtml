@@ -106,12 +106,12 @@
         <h3>View</h3>
         <div class="code">
             @@<span class="Namespace">using</span>&nbsp;ByteNuts.NetCoreControls.Models.Grid<br />
-            @@<span class="Namespace">using</span>&nbsp;ByteNuts.NetCoreControls.Samples.Models.Db<br />
+            @@<span class="Namespace">using</span>&nbsp;ByteNuts.NetCoreControls.Samples.Controls.Ef.Data.Northwind<br />
             @@{<br />
             &nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;context&nbsp;=&nbsp;ViewData[<span class="String">"EditableGrid"</span>]&nbsp;<span class="Keyword">as</span>&nbsp;NccGridContext;<br />
             }<br />
             <br />
-            &lt;ncc:grid&nbsp;Context=<span class="String">"@@context"</span>&nbsp;DataKeys=<span class="String">"ProductID"</span>&nbsp;AllowPaging=<span class="String">"true"</span>&nbsp;RenderForm=<span class="String">"true"</span>&gt;<br />
+            &lt;ncc:grid&nbsp;Context=<span class="String">"@@context"</span>&nbsp;DataKeys=<span class="String">"ProductId"</span>&nbsp;AllowPaging=<span class="String">"true"</span>&nbsp;RenderForm=<span class="String">"true"</span>&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-content&nbsp;ContentType=<span class="String">"PreContent"</span>&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@@<span class="Statement">if</span>&nbsp;(ViewBag.Message&nbsp;!=&nbsp;<span class="Keyword">null</span>)<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
@@ -122,7 +122,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-content&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columns&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductID"</span>&nbsp;HeaderText=<span class="String">"Product&nbsp;Id"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columnbound&nbsp;DataValue=<span class="String">"@@Model.ProductId"</span>&nbsp;HeaderText=<span class="String">"Product&nbsp;Id"</span>&gt;&lt;/ncc:grid-columnbound&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columntemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-headertemplate&gt;Product&nbsp;Name&lt;/ncc:grid-headertemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-itemtemplate&gt;<br />
@@ -132,13 +132,13 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columntemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-headertemplate&gt;Supplier&lt;/ncc:grid-headertemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-itemtemplate&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="Linq">select</span>&nbsp;asp-items=<span class="String">"@@(new&nbsp;SelectList((List&lt;SupplierModel&gt;)context?.AdditionalData["</span>Suppliers<span class="String">"],&nbsp;"</span>SupplierID<span class="String">",&nbsp;"</span>CompanyName<span class="String">",&nbsp;Model.SupplierID))"</span>&nbsp;name=<span class="String">"[@@Model.NccRowNumber].SupplierID"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-control"</span>&gt;&lt;/<span class="Linq">select</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="Linq">select</span>&nbsp;asp-items=<span class="String">"@@(new&nbsp;SelectList((List&lt;Suppliers&gt;)context?.AdditionalData["</span>Suppliers<span class="String">"],&nbsp;"</span>SupplierId<span class="String">",&nbsp;"</span>CompanyName<span class="String">",&nbsp;Model.SupplierId))"</span>&nbsp;name=<span class="String">"[@@Model.NccRowNumber].SupplierId"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-control"</span>&gt;&lt;/<span class="Linq">select</span>&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-itemtemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columntemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columntemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-headertemplate&gt;Category&lt;/ncc:grid-headertemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-itemtemplate&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="Linq">select</span>&nbsp;asp-items=<span class="String">"@@(new&nbsp;SelectList((List&lt;CategoryModel&gt;)context?.AdditionalData["</span>Categories<span class="String">"],&nbsp;"</span>CategoryID<span class="String">",&nbsp;"</span>CategoryName<span class="String">",&nbsp;Model.CategoryID))"</span>&nbsp;name=<span class="String">"[@@Model.NccRowNumber].CategoryID"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-control"</span>&gt;&lt;/<span class="Linq">select</span>&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<span class="Linq">select</span>&nbsp;asp-items=<span class="String">"@@(new&nbsp;SelectList((List&lt;Categories&gt;)context?.AdditionalData["</span>Categories<span class="String">"],&nbsp;"</span>CategoryId<span class="String">",&nbsp;"</span>CategoryName<span class="String">",&nbsp;Model.CategoryId))"</span>&nbsp;name=<span class="String">"[@@Model.NccRowNumber].CategoryId"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-control"</span>&gt;&lt;/<span class="Linq">select</span>&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-itemtemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columntemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columntemplate&gt;<br />
@@ -190,7 +190,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columntemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-columntemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ncc:grid-itemtemplate&gt;<br />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;href=<span class="String">"#"</span>&nbsp;ncc-grid-action-target=<span class="String">"EditableGrid"</span>&nbsp;ncc-grid-action=<span class="String">"UpdateRow"</span>&nbsp;ncc-grid-row=<span class="String">"@@Model.NccRowNumber"</span>&nbsp;&gt;Update&nbsp;Row&lt;/a&gt;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button&nbsp;type=<span class="String">"button"</span>&nbsp;<span class="ReferenceType">class</span>=<span class="String">"btn&nbsp;btn-success"</span>&nbsp;ncc-grid-action-target=<span class="String">"EditableGrid"</span>&nbsp;ncc-grid-action=<span class="String">"UpdateRow"</span>&nbsp;ncc-grid-row=<span class="String">"@@Model.NccRowNumber"</span>&nbsp;&gt;Update&nbsp;Row&lt;/button&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-itemtemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columntemplate&gt;<br />
             &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ncc:grid-columns&gt;<br />

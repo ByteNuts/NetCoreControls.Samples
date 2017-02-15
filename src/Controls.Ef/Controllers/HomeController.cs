@@ -10,6 +10,11 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Ef.Controllers
             return View();
         }
 
+        public IActionResult Data()
+        {
+            return View();
+        }
+
         public IActionResult Error()
         {
             return View();

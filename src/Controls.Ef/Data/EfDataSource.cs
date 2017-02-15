@@ -65,11 +65,6 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Ef.Data
                 };
         }
 
-
-
-
-
-
         public IQueryable<Suppliers> GetSuppliers()
         {
             return _dbContext.Suppliers;

@@ -26,7 +26,7 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Dapper
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<ConnectionStringsModel>(options => Configuration.GetSection("Data").GetSection("ConnectionStrings").Bind(options));
+            services.Configure<ConnectionStringsModel>(options => Configuration.GetSection("ConnectionStrings").Bind(options));
             // Add framework services.
             services.AddMvc();
 
@@ -58,7 +58,7 @@ namespace ByteNuts.NetCoreControls.Samples.Controls.Dapper
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Data}/{id?}");
             });
         }
     }

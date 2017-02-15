@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{8E13F6FF-F
 		Docs\Northwind script.sql = Docs\Northwind script.sql
 	EndProjectSection
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Controls.WebApp", "src\Controls.WebApp\Controls.WebApp.xproj", "{FF3D117E-3CEA-4D45-B695-19DC16EC08F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C0EFA937-D8B2-4AA0-99E3-7586B59DA1FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0EFA937-D8B2-4AA0-99E3-7586B59DA1FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0EFA937-D8B2-4AA0-99E3-7586B59DA1FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF3D117E-3CEA-4D45-B695-19DC16EC08F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF3D117E-3CEA-4D45-B695-19DC16EC08F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF3D117E-3CEA-4D45-B695-19DC16EC08F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF3D117E-3CEA-4D45-B695-19DC16EC08F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,5 +53,6 @@ Global
 		{547F7651-D2E7-4740-9571-97E8BB477736} = {CDA1DC74-856E-4E79-B22E-C6EFB7556A06}
 		{8CB0B4EC-E415-47AE-9A66-CF911B4D3AE4} = {CDA1DC74-856E-4E79-B22E-C6EFB7556A06}
 		{C0EFA937-D8B2-4AA0-99E3-7586B59DA1FC} = {CDA1DC74-856E-4E79-B22E-C6EFB7556A06}
+		{FF3D117E-3CEA-4D45-B695-19DC16EC08F8} = {CDA1DC74-856E-4E79-B22E-C6EFB7556A06}
 	EndGlobalSection
 EndGlobal

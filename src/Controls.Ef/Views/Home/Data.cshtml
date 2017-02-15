@@ -1,0 +1,103 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <h3>Data Access code</h3>
+        <div class="code">
+            <span class="Modifier">public</span>&nbsp;<span class="ReferenceType">class</span>&nbsp;EfDataSource&nbsp;:&nbsp;IDataAccess<br />
+            {<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">protected</span>&nbsp;<span class="Modifier">readonly</span>&nbsp;NorthwindContext&nbsp;_dbContext;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;EfDataSource(NorthwindContext&nbsp;dbContext)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_dbContext&nbsp;=&nbsp;dbContext;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;IQueryable&lt;Products&gt;&nbsp;GetProductList()<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;_dbContext.Products;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">void</span>&nbsp;UpdateProduct(Products&nbsp;model)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;product&nbsp;=&nbsp;_dbContext.Products.Find(model.ProductId);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">if</span>&nbsp;(product&nbsp;!=&nbsp;<span class="Keyword">null</span>)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_dbContext.Entry(product).CurrentValues.SetValues(model);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_dbContext.SaveChanges();<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;Tuple&lt;IQueryable&lt;Products&gt;,&nbsp;<span class="ValueType">int</span>&gt;&nbsp;&nbsp;GetProductListPaginated(<span class="ValueType">int</span>&nbsp;pageNumber,&nbsp;<span class="ValueType">int</span>&nbsp;pageSize)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;<span class="Keyword">new</span>&nbsp;Tuple&lt;IQueryable&lt;Products&gt;,&nbsp;<span class="ValueType">int</span>&gt;(_dbContext.Products.Skip(pageSize&nbsp;*&nbsp;(pageNumber&nbsp;-&nbsp;1)).Take(pageSize),&nbsp;_dbContext.Products.Count());<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;IQueryable&lt;Products&gt;&nbsp;GetProductListFiltered(<span class="ValueType">bool</span>?&nbsp;discontinued,&nbsp;<span class="ValueType">int</span>?&nbsp;supplierId,&nbsp;<span class="ValueType">int</span>?&nbsp;categoryId)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;<span class="Linq">from</span>&nbsp;u&nbsp;<span class="Statement">in</span>&nbsp;_dbContext.Products<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">where</span>&nbsp;(!discontinued.HasValue&nbsp;||&nbsp;u.Discontinued&nbsp;==&nbsp;discontinued.Value)&nbsp;&amp;&amp;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(!supplierId.HasValue&nbsp;||&nbsp;(supplierId.Value&nbsp;&gt;&nbsp;0&nbsp;&amp;&amp;&nbsp;u.SupplierId&nbsp;==&nbsp;supplierId))&nbsp;&amp;&amp;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(!categoryId.HasValue&nbsp;||&nbsp;(categoryId.Value&nbsp;&gt;&nbsp;0&nbsp;&amp;&amp;&nbsp;u.CategoryId&nbsp;==&nbsp;categoryId))<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">select</span>&nbsp;u;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;IQueryable&lt;Customers&gt;&nbsp;GetCustomerDetailByOrder(<span class="ValueType">int</span>?&nbsp;orderId)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;<span class="Linq">from</span>&nbsp;u&nbsp;<span class="Statement">in</span>&nbsp;_dbContext.Orders<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">where</span>&nbsp;orderId.HasValue&nbsp;&amp;&amp;&nbsp;u.OrderId&nbsp;==&nbsp;orderId.Value<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">select</span>&nbsp;u.Customer;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;IQueryable&lt;<span class="Keyword">dynamic</span>&gt;&nbsp;GetOrderDetailByOrder(<span class="ValueType">int</span>?&nbsp;orderId)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;<span class="Linq">from</span>&nbsp;u&nbsp;<span class="Statement">in</span>&nbsp;_dbContext.OrderDetails<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">where</span>&nbsp;orderId.HasValue&nbsp;&amp;&amp;&nbsp;u.OrderId&nbsp;==&nbsp;orderId.Value<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">select</span>&nbsp;<span class="Keyword">new</span>&nbsp;&nbsp;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OrderId&nbsp;=&nbsp;u.OrderId,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ProductId&nbsp;=&nbsp;u.ProductId,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ProductName&nbsp;=&nbsp;u.Product.ProductName,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UnitPrice&nbsp;=&nbsp;u.UnitPrice,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quantity&nbsp;=&nbsp;u.Quantity,<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Discount&nbsp;=&nbsp;u.Discount<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;IQueryable&lt;Suppliers&gt;&nbsp;GetSuppliers()<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;_dbContext.Suppliers;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;IQueryable&lt;Categories&gt;&nbsp;GetCategories()<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;_dbContext.Categories;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;IQueryable&lt;Categories&gt;&nbsp;GetCategoriesBySupplier(<span class="ValueType">int</span>?&nbsp;supplierId)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;<span class="Linq">from</span>&nbsp;cat&nbsp;<span class="Statement">in</span>&nbsp;_dbContext.Categories<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">join</span>&nbsp;suppliers&nbsp;<span class="Statement">in</span>&nbsp;_dbContext.Suppliers&nbsp;<span class="Linq">on</span>&nbsp;supplierId&nbsp;<span class="Linq">equals</span>&nbsp;suppliers.SupplierId<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">select</span>&nbsp;cat;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;IQueryable&lt;Products&gt;&nbsp;GetProductsByCategoryAndSupplier(<span class="ValueType">int</span>?&nbsp;supplierId,&nbsp;<span class="ValueType">int</span>?&nbsp;categoryId)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;_dbContext.Products.Where(x&nbsp;=&gt;&nbsp;x.SupplierId&nbsp;==&nbsp;supplierId&nbsp;&amp;&amp;&nbsp;x.CategoryId&nbsp;==&nbsp;categoryId);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;IQueryable&lt;Orders&gt;&nbsp;GetOrders()<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;_dbContext.Orders;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;IQueryable&lt;Customers&gt;&nbsp;GetCustomers()<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;_dbContext.Customers;<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            <br />
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;IQueryable&lt;Orders&gt;&nbsp;GetOrderByCustomer(<span class="ReferenceType">string</span>&nbsp;customerId)<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;_dbContext.Orders.Where(x&nbsp;=&gt;&nbsp;x.CustomerId&nbsp;==&nbsp;customerId);<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+            }
+        </div>
+    </div>
+</div>

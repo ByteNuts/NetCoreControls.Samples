@@ -4,7 +4,7 @@
     var context = ViewData["EditableGrid"] as NccGridContext;
 }
 
-<ncc:grid Context="@context" DataKeys="ProductID" AllowPaging="true" RenderForm="true">
+<ncc:grid Context="@context" DataKeys="ProductId" AllowPaging="true" RenderForm="true">
     <ncc:grid-content ContentType="PreContent">
         @if (ViewBag.Message != null)
         {

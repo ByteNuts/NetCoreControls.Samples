@@ -1,27 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CDA1DC74-856E-4E79-B22E-C6EFB7556A06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper", "Controls.Dapper\Dapper.csproj", "{547F7651-D2E7-4740-9571-97E8BB477736}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A3A75761-7C4F-46AC-9D80-88B3634232F2}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EF", "Controls.Ef\EF.csproj", "{8CB0B4EC-E415-47AE-9A66-CF911B4D3AE4}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Controls.Dapper", "src\Controls.Dapper\Controls.Dapper.xproj", "{547F7651-D2E7-4740-9571-97E8BB477736}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Controls.Ef", "src\Controls.Ef\Controls.Ef.xproj", "{8CB0B4EC-E415-47AE-9A66-CF911B4D3AE4}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Models", "src\Models\Models.xproj", "{C0EFA937-D8B2-4AA0-99E3-7586B59DA1FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{C0EFA937-D8B2-4AA0-99E3-7586B59DA1FC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{8E13F6FF-FE46-4AF9-B60C-536A0DFA2614}"
 	ProjectSection(SolutionItems) = preProject
 		Docs\Northwind script.sql = Docs\Northwind script.sql
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Controls.WebApp", "src\Controls.WebApp\Controls.WebApp.xproj", "{FF3D117E-3CEA-4D45-B695-19DC16EC08F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "Controls.WebApp\WebApp.csproj", "{FF3D117E-3CEA-4D45-B695-19DC16EC08F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,11 +41,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{547F7651-D2E7-4740-9571-97E8BB477736} = {CDA1DC74-856E-4E79-B22E-C6EFB7556A06}
-		{8CB0B4EC-E415-47AE-9A66-CF911B4D3AE4} = {CDA1DC74-856E-4E79-B22E-C6EFB7556A06}
-		{C0EFA937-D8B2-4AA0-99E3-7586B59DA1FC} = {CDA1DC74-856E-4E79-B22E-C6EFB7556A06}
-		{FF3D117E-3CEA-4D45-B695-19DC16EC08F8} = {CDA1DC74-856E-4E79-B22E-C6EFB7556A06}
 	EndGlobalSection
 EndGlobal

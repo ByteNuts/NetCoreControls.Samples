@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>ByteNuts.NetCoreControls.Samples.Dapper</AssemblyName>
+    <RootNamespace>ByteNuts.NetCoreControls.Samples.Dapper</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Content\css\AdminLTE.min.css" />
+    <Content Include="Content\css\site.css" />
+    <Content Include="Content\css\site.min.css" />
+    <Content Include="Content\css\skin-blue-light.min.css" />
+    <Content Include="Content\images\banner1.svg" />
+    <Content Include="Content\images\banner2.svg" />
+    <Content Include="Content\images\banner3.svg" />
+    <Content Include="Content\images\banner4.svg" />
+    <Content Include="Content\js\app.min.js" />
+    <Content Include="Content\js\site.js" />
+    <Content Include="Content\js\site.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.2" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="NetCoreControls" Version="1.0.0-beta1-0112" />
+    <PackageReference Include="Seq.Extensions.Logging" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\favicon\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+</Project>

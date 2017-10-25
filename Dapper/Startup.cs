@@ -34,7 +34,7 @@ namespace ByteNuts.NetCoreControls.Samples.Dapper
             services.AddScoped<IDataAccess, DapperDataSource>();
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfigurationRoot Configuration { get; }
 
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

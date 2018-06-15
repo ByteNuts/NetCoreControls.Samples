@@ -23,7 +23,7 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.5" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="NetCoreControls" Version="1.0.0-beta2" />
+    <PackageReference Include="NetCoreControls" Version="1.0.0-beta3" />
     <PackageReference Include="Seq.Extensions.Logging" Version="4.0.0" />
   </ItemGroup>
 
